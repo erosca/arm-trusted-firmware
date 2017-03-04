@@ -85,7 +85,6 @@ BL31_SOURCES		+=	${RCAR_GIC_SOURCES}				\
 				plat/common/aarch64/platform_mp_stack.S		\
 				plat/renesas/rcar/bl31_rcar_setup.c		\
 				plat/renesas/rcar/rcar_pm.c			\
-				plat/renesas/rcar/drivers/memdrv/rcar_console.S	\
 				plat/renesas/rcar/drivers/memdrv/rcar_printf.c	\
 				plat/renesas/rcar/drivers/iic_dvfs/iic_dvfs.c	\
 				plat/renesas/rcar/rcar_topology.c		\
@@ -148,6 +147,13 @@ else
     $(error "Error: ${LSI} is not supported.")
   endif
   $(eval $(call add_define,RCAR_LSI))
+endif
+
+# Process BL31_CONSOLE_ENABLE flag
+ifeq (${BL31_CONSOLE_ENABLE},1)
+BL31_SOURCES		+=	plat/renesas/rcar/drivers/scif/scif.S
+else
+BL31_SOURCES		+=	plat/renesas/rcar/drivers/memdrv/rcar_console.S
 endif
 
 # Process RCAR_SECURE_BOOT flag
