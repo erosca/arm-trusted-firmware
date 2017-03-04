@@ -69,7 +69,7 @@ void rcar_set_log_time(void)
 	int32_t i;
 	int32_t start_counter;
 
-	now_time = (uint64_t)readreg_cntpct_el0();
+	now_time = (uint64_t)read_cntpct_el0();
 	now_time += rcar_stack_generic_timer[INDEX_TIMER_COUNT];
 	freq = read_cntfrq_el0(); /* get the frequency	*/
 	if (freq == 0U) { /* for zero division	*/
